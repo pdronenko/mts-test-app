@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mts-test-app';
+  menuItems = [
+    { label: 'First', link: 'first'},
+    { label: 'Second', link: 'second'},
+    { label: 'Телеканалы', link: 'channels'},
+  ];
 }
