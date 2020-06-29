@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
-import { IChannelsResponse } from '../core/interfaces/channels-response.interface';
-import { ChannelsService } from '../core/services/channels.service';
-import { IChannel } from '../core/interfaces/channel.interface';
+import { ChannelsService } from '../../core/services/channels.service';
+import { IChannel } from '../../core/interfaces/channel.interface';
+import { IChannelsResponse } from '../../core/interfaces/channels-response.interface';
 
 @Component({
   selector: 'app-channels',

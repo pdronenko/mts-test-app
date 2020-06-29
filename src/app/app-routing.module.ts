@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ChannelsComponent } from './channels/channels.component';
-import { EmptyPageComponent } from './empty-page/empty-page.component';
+import { ChannelsComponent } from './components/channels/channels.component';
+import { EmptyPageComponent } from './components/empty-page/empty-page.component';
 
 const routes: Routes = [
   { path: 'channels', component: ChannelsComponent },
