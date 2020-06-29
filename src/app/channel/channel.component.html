@@ -1,0 +1,4 @@
+<div (mouseover)="showChannelInfo = true" (mouseleave)="showChannelInfo = false" class="channel">
+  <img class="channel__image" width="160" height="96" [src]="channel.picture.backgrounds[0]" [alt]="channel.name">
+</div>
+<app-channel-info class="channel__info" *ngIf="showChannelInfo" [channel]="channel"></app-channel-info>

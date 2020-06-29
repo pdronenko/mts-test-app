@@ -1,0 +1,20 @@
+.channel {
+  transition: all;
+  transition-duration: 0.5s;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 160px;
+  height: 96px;
+
+  &:hover {
+    border-color: #BA9D5A;
+    transform: translateY(-5px);
+  }
+
+  &__info {
+    position: absolute;
+    z-index: 2;
+  }
+}
