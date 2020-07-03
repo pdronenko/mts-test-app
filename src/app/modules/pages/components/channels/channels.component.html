@@ -5,6 +5,7 @@
       <app-channel class="channels__channel" [channel]="channel"></app-channel>
     </li>
   </ul>
+  <p *ngIf="!channels?.length && total" class="empty-message">Каналов с таким жанром нет, попробуйте нажать кнопку "Показать еще"</p>
   <button
     *ngIf="shouldShowLoadMoreButton(total)"
     (click)="showMoreChannels()"
