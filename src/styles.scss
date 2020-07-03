@@ -2,7 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 body {
-  background: linear-gradient(90deg, rgba(0,20,36,1) 0%, rgba(30,76,104,1) 50%, rgba(0,20,36,1) 100%);
+  min-height: 80vh;
+  background:
+  linear-gradient(180deg, rgba(0,20,36,0) 0%, rgba(92,127,227,0.2) 45%, rgba(92,127,227,0.2) 55%, rgba(0,20,36,0) 100%),
+    linear-gradient(90deg, rgba(0,20,36,1) 0%, rgba(86,109,125,1) 45%, rgba(86,109,125,1) 55%, rgba(0,20,36,1) 100%);
   font-family: 'Roboto', Arial, sans-serif;
 }
 
