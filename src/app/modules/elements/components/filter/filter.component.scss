@@ -21,8 +21,9 @@
     height: 38px;
     color: black;
 
-    &:hover {
-      background-color: #BA9D5A;
+    &--reset {
+     color: white;
+     background-color: #233345;
     }
   }
 }

@@ -8,9 +8,10 @@
   </ng-container>
   <ng-container *ngIf="type === 'sorting'">
     <option
+      class="filter__option"
       *ngFor="let sorting of sortingOptions"
       [selected]="(selectedSorting$ | async) === sorting.value"
       [value]="sorting.value">{{sorting.label}}</option>
   </ng-container>
-  <option value="">{{type === 'genres' ? 'Все телеканалы' : 'По умолчанию'}}</option>
+  <option class="filter__option filter__option--reset" value="">{{type === 'genres' ? 'Все телеканалы' : 'По умолчанию'}}</option>
 </select>
