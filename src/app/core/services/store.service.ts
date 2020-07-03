@@ -12,7 +12,10 @@ export class StoreService {
     JSON.parse(localStorage.getItem('genresFilter'))
     || ['reset']
   );
-  private sorting$: BehaviorSubject<string> = new BehaviorSubject(localStorage.getItem('sorting') || 'reset');
+  private sorting$: BehaviorSubject<string> = new BehaviorSubject(
+    localStorage.getItem('sorting')
+    || 'reset'
+  );
   private uniqueGenres$: BehaviorSubject<IGenre[]> = new BehaviorSubject(null);
 
   constructor() { }
