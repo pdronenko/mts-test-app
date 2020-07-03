@@ -1,16 +1,16 @@
-<select class="filter__select {{type}}" #filter (change)="onSelectChange(filter.value)">
+<select class="filter__select" #filter (change)="onSelectChange(filter.value)">
   <ng-container *ngIf="type === 'genres'">
     <option
       class="filter__option"
       *ngFor="let genre of (genres$ | async)"
-      [selected]="(genresFilter$ | async) === genre.genreID"
+      [selected]="(selectedGenreId$ | async) === genre.genreID"
       [value]="genre.genreID">{{genre.genreName}}</option>
   </ng-container>
   <ng-container *ngIf="type === 'sorting'">
     <option
       *ngFor="let sorting of sortingOptions"
-      [selected]="(sorting$ | async) === sorting.value"
+      [selected]="(selectedSorting$ | async) === sorting.value"
       [value]="sorting.value">{{sorting.label}}</option>
   </ng-container>
-  <option value="reset">{{type === 'genres' ? 'Все телеканалы' : 'По умолчанию'}}</option>
+  <option value="">{{type === 'genres' ? 'Все телеканалы' : 'По умолчанию'}}</option>
 </select>

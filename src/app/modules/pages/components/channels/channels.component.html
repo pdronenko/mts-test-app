@@ -1,12 +1,12 @@
-<section class="channels" *ngIf="channelDetails">
+<section class="channels" *ngIf="(channels$ | async) as channels">
   <h2 class="channels__heading">{{total}} каналов</h2>
   <ul class="channels__list">
-    <li class="channels__item" *ngFor="let channel of channelDetails; trackBy:identify">
+    <li class="channels__item" *ngFor="let channel of channels; trackBy:identify">
       <app-channel class="channels__channel" [channel]="channel"></app-channel>
     </li>
   </ul>
   <button
-    *ngIf="channelsLimit <= total"
+    *ngIf="shouldShowLoadMoreButton(total)"
     (click)="showMoreChannels()"
-    class="channels__show-more">Показать еще</button>
+    class="channels__load-more">Показать еще</button>
 </section>

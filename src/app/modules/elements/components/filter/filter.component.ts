@@ -13,8 +13,8 @@ export class FilterComponent implements OnInit {
   @Input() type: 'genres' | 'sorting';
 
   genres$: Observable<IGenre[]>;
-  genresFilter$: Observable<string>;
-  sorting$: Observable<string>;
+  selectedGenreId$: Observable<string>;
+  selectedSorting$: Observable<string>;
 
   sortingOptions = [
     { value: 'asc', label: 'По возрастанию (А-Я)' },
@@ -26,16 +26,16 @@ export class FilterComponent implements OnInit {
   ngOnInit(): void {
     if (this.type === 'genres') {
       this.genres$ = this.storeService.getUniqueGenres();
-      this.genresFilter$ = this.storeService.getGenresFilter();
+      this.selectedGenreId$ = this.storeService.getSelectedGenreId();
     } else {
-      this.sorting$ = this.storeService.getSorting();
+      this.selectedSorting$ = this.storeService.getSelectedSorting();
     }
   }
 
   onSelectChange(value: string): void {
     this.type === 'genres'
-      ? this.storeService.setGenresFilter(value)
-      : this.storeService.setSorting(value);
+      ? this.storeService.setSelectedGenreId(value)
+      : this.storeService.setSelectedSorting(value);
   }
 
   isGenreSelected(genresIds: string[], genreId: string): boolean {

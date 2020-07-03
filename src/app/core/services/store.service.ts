@@ -1,56 +1,92 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IChannelsResponse } from '../interfaces/channels-response.interface';
+import { filter, map, withLatestFrom } from 'rxjs/operators';
+
+import { IChannel } from '../interfaces/channel.interface';
 import { IGenre } from '../interfaces/genre.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
-  private channels$: BehaviorSubject<IChannelsResponse> = new BehaviorSubject(null);
-  private genresFilter$: BehaviorSubject<string> = new BehaviorSubject(
-    localStorage.getItem('genresFilter')
-    || 'reset'
-  );
-  private sorting$: BehaviorSubject<string> = new BehaviorSubject(
-    localStorage.getItem('sorting')
-    || 'reset'
-  );
+  allChannels: IChannel[];
+  channelsLimit = 24;
+  totalChannels = 0;
+
+  private channels$: BehaviorSubject<IChannel[]> = new BehaviorSubject(null);
+  private selectedGenreId$: BehaviorSubject<string> = new BehaviorSubject(localStorage.getItem('selectedFilterId'));
+  private selectedSorting$: BehaviorSubject<string> = new BehaviorSubject(localStorage.getItem('selectedSorting'));
   private uniqueGenres$: BehaviorSubject<IGenre[]> = new BehaviorSubject(null);
 
   constructor() { }
 
-  getChannels(): Observable<IChannelsResponse> {
-    return this.channels$.asObservable();
+  getChannels(): Observable<IChannel[]> {
+    return this.channels$.asObservable()
+      .pipe(
+        filter(channels => !!channels),
+        map(channels => this.sliceChannels(channels)),
+        withLatestFrom(this.selectedGenreId$),
+        map(this.filterChannelsByGenre),
+        withLatestFrom(this.selectedSorting$),
+        map(this.sortChannels),
+      );
   }
 
-  getGenresFilter(): Observable<string> {
-    return this.genresFilter$.asObservable();
+  getSelectedGenreId(): Observable<string> {
+    return this.selectedGenreId$.asObservable();
   }
 
   getUniqueGenres(): Observable<IGenre[]> {
     return this.uniqueGenres$.asObservable();
   }
 
-  getSorting(): Observable<string> {
-    return this.sorting$.asObservable();
+  getSelectedSorting(): Observable<string> {
+    return this.selectedSorting$.asObservable();
   }
 
-  setChannels(channels: IChannelsResponse): void {
+  setChannels(channels: IChannel[]): void {
     this.channels$.next(channels);
   }
 
-  setGenresFilter(genre: string): void {
-    localStorage.setItem('genresFilter', genre);
-    this.genresFilter$.next(genre);
+  setSelectedGenreId(genre: string): void {
+    localStorage.setItem('selectedFilterId', genre);
+    this.selectedGenreId$.next(genre);
+    this.channels$.next(this.allChannels);
   }
 
   setUniqueGenres(genres: IGenre[]): void {
     this.uniqueGenres$.next(genres);
   }
 
-  setSorting(sorting: string): void {
-    localStorage.setItem('sorting', sorting);
-    this.sorting$.next(sorting);
+  setSelectedSorting(sorting: string): void {
+    localStorage.setItem('selectedSorting', sorting);
+    this.selectedSorting$.next(sorting);
+    this.channels$.next(this.allChannels);
+  }
+
+  showMoreChannels(): void {
+    this.channelsLimit += 12;
+    this.channels$.next(this.allChannels);
+  }
+
+  private filterChannelsByGenre([channels, genreId]): IChannel[] {
+    if (!genreId) { return channels; }
+
+    return channels.filter((channel: IChannel) => {
+      return channel.genres && channel.genres.some(genre => genre.genreID === genreId);
+    });
+  }
+
+  private sliceChannels(channels: IChannel[]): IChannel[] {
+    return channels.slice(0, this.channelsLimit);
+  }
+
+  private sortChannels([channels, sorting]): IChannel[] {
+    if (!sorting) { return channels; }
+
+    return channels.sort((a: IChannel, b: IChannel) => sorting === 'asc'
+      ? a.name.localeCompare(b.name)
+      : b.name.localeCompare(a.name)
+    );
   }
 }
