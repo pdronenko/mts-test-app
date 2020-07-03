@@ -74,6 +74,10 @@ export class ChannelsComponent implements OnInit, OnDestroy {
     if (!this.channelDetails) { return; }
     if (sorting === 'reset') {
       this.sliceChannels();
+
+      if (this.genresFilter.length) {
+        this.filterChannelsByGenre(this.genresFilter);
+      }
       return;
     }
 
