@@ -1,0 +1,15 @@
+<select #filter (change)="onSelectChange(filter.selectedOptions)" [multiple]="type === 'genres'">
+  <ng-container *ngIf="type === 'genres'">
+    <option
+    *ngFor="let genre of (genres$ | async)"
+      [selected]="isGenreSelected(genresFilter$ | async, genre.genreID)"
+      [value]="genre.genreID">{{genre.genreName}}</option>
+  </ng-container>
+  <ng-container *ngIf="type === 'sorting'">
+    <option
+      *ngFor="let sorting of sortingOptions"
+      [selected]="(sorting$ | async) === sorting.value"
+      [value]="sorting.value">{{sorting.label}}</option>
+  </ng-container>
+  <option value="reset">Сбросить выбор</option>
+</select>

@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ChannelsComponent } from './components/channels/channels.component';
-import { EmptyPageComponent } from './components/empty-page/empty-page.component';
+import { ERoutes } from './core/enums/routes.enum';
 
 const routes: Routes = [
-  { path: 'channels', component: ChannelsComponent },
-  { path: 'first', component: EmptyPageComponent },
-  { path: 'second', component: EmptyPageComponent },
-  { path: '**', redirectTo: 'channels' }
-];
+  { path: ERoutes.MAIN_PAGE, loadChildren: () => import('./modules/layout/layout.module').then(m => m.LayoutModule) },
+  { path: '**', redirectTo: ERoutes.MAIN_PAGE }
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

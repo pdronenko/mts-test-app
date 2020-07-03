@@ -1,0 +1,45 @@
+.centered {
+  max-width: 1000px;
+  padding: 0 20px;
+  margin: auto;
+}
+
+.header {
+  margin-top: 46px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav {
+  &__list {
+    display: flex;
+  }
+
+  &__item {
+    min-width: 160px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  &__link {
+    color: #FFFFFF;
+    flex: 1;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    line-height: 14px;
+    border-bottom: 2px solid transparent;
+
+    &.active {
+      font-weight: bold;
+      border-color: #BA9D5A;
+    }
+
+    &:hover:not(.active) {
+      color: #BA9D5A;
+    }
+  }
+}
