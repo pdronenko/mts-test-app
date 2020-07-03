@@ -7,6 +7,7 @@
     font-size: 18px;
     font-weight: 300;
     margin: 20px 0;
+    text-align: center;
   }
 
   &__load-more {
@@ -54,6 +55,10 @@
   @media screen and (min-width: 1200px) {
     &__list {
       grid-template-columns: repeat(6, 1fr);
+    }
+
+    &__heading {
+      text-align: start;
     }
   }
 }
