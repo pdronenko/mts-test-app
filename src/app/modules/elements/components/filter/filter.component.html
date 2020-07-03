@@ -1,8 +1,9 @@
-<select #filter (change)="onSelectChange(filter.selectedOptions)" [multiple]="type === 'genres'">
+<select class="filter__select" #filter (change)="onSelectChange(filter.value)">
   <ng-container *ngIf="type === 'genres'">
     <option
-    *ngFor="let genre of (genres$ | async)"
-      [selected]="isGenreSelected(genresFilter$ | async, genre.genreID)"
+      class="filter__option"
+      *ngFor="let genre of (genres$ | async)"
+      [selected]="(genresFilter$ | async) === genre.genreID"
       [value]="genre.genreID">{{genre.genreName}}</option>
   </ng-container>
   <ng-container *ngIf="type === 'sorting'">

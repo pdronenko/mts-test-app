@@ -17,7 +17,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
   total: number;
 
   private channelsResponse: IChannelsResponse;
-  private genresFilter: string[] = [];
+  private genreFilterId: string;
   private sorting = 'reset';
   private sub = new Subscription();
   private unfilteredChannels: IChannel[];
@@ -29,7 +29,7 @@ export class ChannelsComponent implements OnInit, OnDestroy {
   showMoreChannels(): void {
     this.channelsLimit += 12;
     this.sliceChannels();
-    this.filterChannelsByGenre(this.genresFilter);
+    this.filterChannelsByGenre(this.genreFilterId);
     this.sortChannels(this.sorting);
   }
 
@@ -45,17 +45,17 @@ export class ChannelsComponent implements OnInit, OnDestroy {
         this.channelsResponse = channelsResponse;
         this.total = +channelsResponse.total;
         this.sliceChannels();
-        this.filterChannelsByGenre(this.genresFilter);
+        this.filterChannelsByGenre(this.genreFilterId);
         this.sortChannels(this.sorting);
       })
     ).add(
       combineLatest(
         this.storeService.getSorting(),
         this.storeService.getGenresFilter()
-      ).subscribe(([sorting, genres]) => {
+      ).subscribe(([sorting, genreId]) => {
         this.sorting = sorting;
-        this.genresFilter = genres;
-        this.filterChannelsByGenre(genres);
+        this.genreFilterId = genreId;
+        this.filterChannelsByGenre(genreId);
         this.sortChannels(sorting);
       })
     );
@@ -75,8 +75,8 @@ export class ChannelsComponent implements OnInit, OnDestroy {
     if (sorting === 'reset') {
       this.sliceChannels();
 
-      if (this.genresFilter.length) {
-        this.filterChannelsByGenre(this.genresFilter);
+      if (this.genreFilterId) {
+        this.filterChannelsByGenre(this.genreFilterId);
       }
       return;
     }
@@ -87,15 +87,15 @@ export class ChannelsComponent implements OnInit, OnDestroy {
     );
   }
 
-  private filterChannelsByGenre(genres: string[]): void {
+  private filterChannelsByGenre(genreId: string): void {
     if (!this.channelDetails) { return; }
-    if (!genres.length || genres[0] === 'reset') {
+    if (genreId === 'reset') {
       this.sliceChannels();
       return;
     }
 
     this.channelDetails = this.unfilteredChannels.filter((channel) => {
-      return channel.genres && channel.genres.some(genre => genres.includes(genre.genreID));
+      return channel.genres && channel.genres.some(genre => genre.genreID === genreId);
     });
   }
 }

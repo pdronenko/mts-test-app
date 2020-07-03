@@ -8,9 +8,9 @@ import { IGenre } from '../interfaces/genre.interface';
 })
 export class StoreService {
   private channels$: BehaviorSubject<IChannelsResponse> = new BehaviorSubject(null);
-  private genresFilter$: BehaviorSubject<string[]> = new BehaviorSubject(
-    JSON.parse(localStorage.getItem('genresFilter'))
-    || ['reset']
+  private genresFilter$: BehaviorSubject<string> = new BehaviorSubject(
+    localStorage.getItem('genresFilter')
+    || 'reset'
   );
   private sorting$: BehaviorSubject<string> = new BehaviorSubject(
     localStorage.getItem('sorting')
@@ -24,7 +24,7 @@ export class StoreService {
     return this.channels$.asObservable();
   }
 
-  getGenresFilter(): Observable<string[]> {
+  getGenresFilter(): Observable<string> {
     return this.genresFilter$.asObservable();
   }
 
@@ -40,9 +40,9 @@ export class StoreService {
     this.channels$.next(channels);
   }
 
-  setGenresFilter(genres: string[]): void {
-    localStorage.setItem('genresFilter', JSON.stringify(genres));
-    this.genresFilter$.next(genres);
+  setGenresFilter(genre: string): void {
+    localStorage.setItem('genresFilter', genre);
+    this.genresFilter$.next(genre);
   }
 
   setUniqueGenres(genres: IGenre[]): void {

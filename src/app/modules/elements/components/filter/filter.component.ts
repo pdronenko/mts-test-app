@@ -13,7 +13,7 @@ export class FilterComponent implements OnInit {
   @Input() type: 'genres' | 'sorting';
 
   genres$: Observable<IGenre[]>;
-  genresFilter$: Observable<string[]>;
+  genresFilter$: Observable<string>;
   sorting$: Observable<string>;
 
   sortingOptions = [
@@ -32,12 +32,10 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  onSelectChange(options): void {
-    const values = [...options].map(option => option.value);
-
+  onSelectChange(value: string): void {
     this.type === 'genres'
-      ? this.storeService.setGenresFilter(values)
-      : this.storeService.setSorting(values[0]);
+      ? this.storeService.setGenresFilter(value)
+      : this.storeService.setSorting(value);
   }
 
   isGenreSelected(genresIds: string[], genreId: string): boolean {
