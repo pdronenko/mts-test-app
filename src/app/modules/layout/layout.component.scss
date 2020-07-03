@@ -11,6 +11,18 @@
   align-items: center;
   border-bottom: 1px solid #3A4451;
   padding: 0;
+  flex-direction: column-reverse;
+}
+
+.filter {
+  margin-left: 23px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .nav {
@@ -42,6 +54,34 @@
 
     &:hover:not(.active) {
       color: #BA9D5A;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .header {
+    flex-direction: row;
+  }
+
+  .filters {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .filters {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .filter {
+    margin: 0 0 10px 0;
+  }
+
+
+  .nav {
+    &__item {
+      min-width: 95px;
     }
   }
 }
