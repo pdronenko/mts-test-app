@@ -6,7 +6,7 @@
       </li>
     </ul>
   </nav>
-  <section class="filters">
+  <section *ngIf="shouldShowFilters()" class="filters">
     <app-filter type="sorting"></app-filter>
     <app-filter type="genres"></app-filter>
   </section>

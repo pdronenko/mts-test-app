@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ERoutes } from '../../core/enums/routes.enum';
 
 @Component({
   selector: 'app-layout',
@@ -17,4 +18,7 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  shouldShowFilters(): boolean {
+    return location.pathname.includes(ERoutes.CHANNELS);
+  }
 }
