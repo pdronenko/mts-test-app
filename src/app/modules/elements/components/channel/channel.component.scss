@@ -5,8 +5,10 @@
   border: 2px solid transparent;
   border-radius: 5px;
   overflow: hidden;
-  width: 160px;
-  height: 96px;
+
+  &__image {
+    width: 100%;
+  }
 
   &:hover {
     border-color: #BA9D5A;

@@ -2,13 +2,32 @@
   &__select {
     background: transparent;
     color: white;
-    width: 165px;
+    min-width: 165px;
     min-height: 36px;
     font-size: 17px;
     margin-left: 23px;
+    cursor: pointer;
+    border-color: #415165;
+    border-radius: 5px;
+    padding: 0 17px 0 17px;
+
+    &:focus {
+      color: #BA9D5A;
+      border-color: #BA9D5A;
+    }
+
+    &.sorting {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
   }
 
   &__option {
+    height: 38px;
+    color: black;
 
+    &:hover {
+      background-color: #BA9D5A;
+    }
   }
 }

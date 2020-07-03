@@ -1,4 +1,4 @@
-<select class="filter__select" #filter (change)="onSelectChange(filter.value)">
+<select class="filter__select {{type}}" #filter (change)="onSelectChange(filter.value)">
   <ng-container *ngIf="type === 'genres'">
     <option
       class="filter__option"
@@ -12,5 +12,5 @@
       [selected]="(sorting$ | async) === sorting.value"
       [value]="sorting.value">{{sorting.label}}</option>
   </ng-container>
-  <option value="reset">Сбросить выбор</option>
+  <option value="reset">{{type === 'genres' ? 'Все телеканалы' : 'По умолчанию'}}</option>
 </select>
