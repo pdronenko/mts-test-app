@@ -24,6 +24,10 @@
     font-size: 14px;
 
     &:hover {
+      opacity: .8;
+    }
+
+    &:active {
       opacity: 1;
     }
   }
