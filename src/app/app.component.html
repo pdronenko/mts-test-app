@@ -1,13 +1,1 @@
-<header class="header centered">
-  <nav class="nav">
-    <ul class="nav__list">
-      <li class="nav__item" *ngFor="let menuItem of menuItems">
-        <a class="nav__link" [routerLink]="menuItem.link" routerLinkActive="active">{{menuItem.label}}</a>
-      </li>
-    </ul>
-  </nav>
-  <section class="filters"></section>
-</header>
-<main class="centered">
-  <router-outlet></router-outlet>
-</main>
+<router-outlet></router-outlet>

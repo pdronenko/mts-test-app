@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IChannel } from '../../core/interfaces/channel.interface';
+
+import { IChannel } from '../../../../core/interfaces/channel.interface';
 
 @Component({
   selector: 'app-channel-info',
