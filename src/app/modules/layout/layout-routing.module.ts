@@ -8,6 +8,7 @@ import { ERoutes } from '../../core/enums/routes.enum';
 import { LayoutComponent } from './layout.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: ERoutes.CHANNELS, pathMatch: 'full' },
   {
     path: ERoutes.MAIN_PAGE,
     component: LayoutComponent,
