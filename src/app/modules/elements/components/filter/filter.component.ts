@@ -37,8 +37,4 @@ export class FilterComponent implements OnInit {
       ? this.storeService.setSelectedGenreId(value)
       : this.storeService.setSelectedSorting(value);
   }
-
-  isGenreSelected(genresIds: string[], genreId: string): boolean {
-    return genresIds.includes(genreId);
-  }
 }

@@ -23,7 +23,6 @@ export class ChannelsResolver implements Resolve<Observable<null>> {
     this.titleService.setTitle(pageTitle);
 
     this.channelsService.getChannels().subscribe((response) => {
-      this.storeService.totalChannels = +response.total;
       this.storeService.allChannels = response.channelDetails;
       this.storeService.channelsLimit = 24;
       this.storeService.setChannels(response.channelDetails);

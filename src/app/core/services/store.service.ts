@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { filter, map, withLatestFrom, tap } from 'rxjs/operators';
 
 import { IChannel } from '../interfaces/channel.interface';
 import { IGenre } from '../interfaces/genre.interface';
@@ -11,7 +11,7 @@ import { IGenre } from '../interfaces/genre.interface';
 export class StoreService {
   allChannels: IChannel[];
   channelsLimit = 24;
-  totalChannels = 0;
+  filteredChannelsCount = 0;
 
   private channels$: BehaviorSubject<IChannel[]> = new BehaviorSubject(null);
   private selectedGenreId$: BehaviorSubject<string> = new BehaviorSubject(localStorage.getItem('selectedFilterId'));
@@ -24,11 +24,12 @@ export class StoreService {
     return this.channels$.asObservable()
       .pipe(
         filter(channels => !!channels),
-        map(channels => this.sliceChannels(channels)),
         withLatestFrom(this.selectedGenreId$),
         map(this.filterChannelsByGenre),
+        tap(channels => this.filteredChannelsCount = channels.length),
         withLatestFrom(this.selectedSorting$),
         map(this.sortChannels),
+        map(channels => this.sliceChannels(channels)),
       );
   }
 
