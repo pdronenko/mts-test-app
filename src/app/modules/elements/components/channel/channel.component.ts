@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { IChannel } from '../../../../core/interfaces/channel.interface';
+import { Channel } from '../../../../core/classes/channel.class';
 
 @Component({
   selector: 'app-channel',
@@ -8,7 +8,7 @@ import { IChannel } from '../../../../core/interfaces/channel.interface';
   styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnInit {
-  @Input() channel: IChannel;
+  @Input() channel: Channel;
 
   showChannelInfo = false;
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { IChannel } from 'src/app/core/interfaces/channel.interface';
+import { Channel } from '../../../../core/classes/channel.class';
 import { StoreService } from 'src/app/core/services/store.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { StoreService } from 'src/app/core/services/store.service';
   styleUrls: ['./channels.component.scss']
 })
 export class ChannelsComponent implements OnInit {
-  channels$: Observable<IChannel[]>;
+  channels$: Observable<Channel[]>;
 
   constructor(
     private storeService: StoreService,
@@ -20,7 +20,7 @@ export class ChannelsComponent implements OnInit {
     this.channels$ = this.storeService.getChannels();
   }
 
-  identify(index: number, channel: IChannel): string {
+  identify(index: number, channel: Channel): string {
     return channel.name;
   }
 

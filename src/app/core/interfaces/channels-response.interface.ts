@@ -1,7 +1,6 @@
-import { IChannel } from './channel.interface';
-import { IGenre } from './genre.interface';
+import { Channel } from '../classes/channel.class';
 
 export interface IChannelsResponse {
   total: string;
-  channelDetails: IChannel[];
+  channelDetails: Channel[];
 }

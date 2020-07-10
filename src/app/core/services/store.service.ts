@@ -2,25 +2,25 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, withLatestFrom, tap } from 'rxjs/operators';
 
-import { IChannel } from '../interfaces/channel.interface';
+import { Channel } from '../classes/channel.class';
 import { IGenre } from '../interfaces/genre.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
-  allChannels: IChannel[];
+  allChannels: Channel[];
   channelsLimit = 24;
   filteredChannelsCount = 0;
 
-  private channels$: BehaviorSubject<IChannel[]> = new BehaviorSubject(null);
+  private channels$: BehaviorSubject<Channel[]> = new BehaviorSubject(null);
   private selectedGenreId$: BehaviorSubject<string> = new BehaviorSubject(localStorage.getItem('selectedFilterId'));
   private selectedSorting$: BehaviorSubject<string> = new BehaviorSubject(localStorage.getItem('selectedSorting'));
   private uniqueGenres$: BehaviorSubject<IGenre[]> = new BehaviorSubject(null);
 
   constructor() { }
 
-  getChannels(): Observable<IChannel[]> {
+  getChannels(): Observable<Channel[]> {
     return this.channels$.asObservable()
       .pipe(
         filter(channels => !!channels),
@@ -45,7 +45,7 @@ export class StoreService {
     return this.selectedSorting$.asObservable();
   }
 
-  setChannels(channels: IChannel[]): void {
+  setChannels(channels: Channel[]): void {
     this.channels$.next(channels);
   }
 
@@ -70,22 +70,22 @@ export class StoreService {
     this.channels$.next(this.allChannels);
   }
 
-  private filterChannelsByGenre([channels, genreId]): IChannel[] {
+  private filterChannelsByGenre([channels, genreId]): Channel[] {
     if (!genreId) { return channels; }
 
-    return channels.filter((channel: IChannel) => {
-      return channel.genres && channel.genres.some(genre => genre.genreID === genreId);
+    return channels.filter((channel: Channel) => {
+      return channel.genres.some(genre => genre.genreID === genreId);
     });
   }
 
-  private sliceChannels(channels: IChannel[]): IChannel[] {
+  private sliceChannels(channels: Channel[]): Channel[] {
     return channels.slice(0, this.channelsLimit);
   }
 
-  private sortChannels([channels, sorting]): IChannel[] {
+  private sortChannels([channels, sorting]): Channel[] {
     if (!sorting) { return channels; }
 
-    return channels.sort((a: IChannel, b: IChannel) => sorting === 'asc'
+    return channels.sort((a: Channel, b: Channel) => sorting === 'asc'
       ? a.name.localeCompare(b.name)
       : b.name.localeCompare(a.name)
     );

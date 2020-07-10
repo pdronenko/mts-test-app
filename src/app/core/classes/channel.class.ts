@@ -1,6 +1,6 @@
-import { IGenre } from './genre.interface';
+import { IGenre } from '../interfaces/genre.interface';
 
-export interface IChannel {
+export class Channel {
   name: string;
   introduce: string;
   picture: {
@@ -12,4 +12,10 @@ export interface IChannel {
     others: [];
   };
   genres: IGenre[];
+
+  constructor(channel: Channel) {
+    Object.assign(this, channel);
+
+    this.genres = this.genres || [];
+  }
 }
