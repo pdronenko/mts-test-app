@@ -10,6 +10,7 @@ import { StoreService } from 'src/app/core/services/store.service';
   styleUrls: ['./channels.component.scss']
 })
 export class ChannelsComponent implements OnInit {
+  activeChannel: Channel;
   channels$: Observable<Channel[]>;
 
   constructor(
