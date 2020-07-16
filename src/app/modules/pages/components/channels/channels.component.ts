@@ -36,21 +36,16 @@ export class ChannelsComponent implements OnInit {
   generateChannelString(channelsCount: number): string {
     const words = ['канал', 'канала', 'каналов'];
 
-    const remainder = Math.abs(channelsCount) % 100;
-    const remainder1 = remainder % 10;
+    const remainder1 = Math.abs(channelsCount) % 100;
+    const remainder2 = remainder1 % 10;
 
-    if (remainder > 10 && remainder < 20) {
-        return words[2];
-    }
+    const remainderChecks = [
+      { check: remainder1 > 10 && remainder1 < 20, word: words[2] },
+      { check: remainder2 > 1 && remainder2 < 5, word: words[1] },
+      { check: remainder2 === 1, word: words[0] },
+      { check: true, word: words[2] },
+    ];
 
-    if (remainder1 > 1 && remainder1 < 5) {
-        return words[1];
-    }
-
-    if (remainder1 === 1) {
-        return words[0];
-    }
-
-    return words[2];
+    return remainderChecks.find(({ check }) => check).word;
   }
 }
