@@ -7,7 +7,7 @@ import { ERoutes } from '../../core/enums/routes.enum';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  menuItems = [
+  public menuItems = [
     { label: 'First', link: 'first'},
     { label: 'Second', link: 'second'},
     { label: 'Телеканалы', link: 'channels'},
@@ -15,10 +15,10 @@ export class LayoutComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  shouldShowFilters(): boolean {
+  public shouldShowFilters(): boolean {
     return location.pathname.includes(ERoutes.CHANNELS);
   }
 }

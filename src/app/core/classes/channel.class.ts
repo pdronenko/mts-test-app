@@ -1,9 +1,9 @@
 import { IGenre } from '../interfaces/genre.interface';
 
 export class Channel {
-  name: string;
-  introduce: string;
-  picture: {
+  public name: string;
+  public introduce: string;
+  public picture: {
     hcsSlaveAddrs: [];
     extensionFields: [];
     backgrounds: string[];
@@ -11,7 +11,7 @@ export class Channel {
     channelBlackWhites: string[];
     others: [];
   };
-  genres: IGenre[];
+  public genres: IGenre[];
 
   constructor(channel: Channel) {
     Object.assign(this, channel);

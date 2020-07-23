@@ -10,7 +10,7 @@ import { IChannelsResponse } from '../interfaces/channels-response.interface';
 export class ChannelsService {
   constructor(private http: HttpClient) { }
 
-  getChannels(): Observable<IChannelsResponse> {
+  public getChannels(): Observable<IChannelsResponse> {
     return this.http.get<IChannelsResponse>('../../assets/channels.json');
   }
 }

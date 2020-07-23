@@ -9,9 +9,9 @@ import { IGenre } from '../interfaces/genre.interface';
   providedIn: 'root'
 })
 export class StoreService {
-  allChannels: Channel[];
-  channelsLimit = 24;
-  filteredChannelsCount = 0;
+  public allChannels: Channel[];
+  public channelsLimit = 24;
+  public filteredChannelsCount = 0;
 
   private channels$: BehaviorSubject<Channel[]> = new BehaviorSubject(null);
   private selectedGenreId$: BehaviorSubject<string> = new BehaviorSubject(localStorage.getItem('selectedFilterId'));
@@ -20,7 +20,7 @@ export class StoreService {
 
   constructor() { }
 
-  getChannels(): Observable<Channel[]> {
+  public getChannels(): Observable<Channel[]> {
     return this.channels$.asObservable()
       .pipe(
         filter(channels => !!channels),
@@ -33,39 +33,39 @@ export class StoreService {
       );
   }
 
-  getSelectedGenreId(): Observable<string> {
+  public getSelectedGenreId(): Observable<string> {
     return this.selectedGenreId$.asObservable();
   }
 
-  getUniqueGenres(): Observable<IGenre[]> {
+  public getUniqueGenres(): Observable<IGenre[]> {
     return this.uniqueGenres$.asObservable();
   }
 
-  getSelectedSorting(): Observable<string> {
+  public getSelectedSorting(): Observable<string> {
     return this.selectedSorting$.asObservable();
   }
 
-  setChannels(channels: Channel[]): void {
+  public setChannels(channels: Channel[]): void {
     this.channels$.next(channels);
   }
 
-  setSelectedGenreId(genre: string): void {
+  public setSelectedGenreId(genre: string): void {
     localStorage.setItem('selectedFilterId', genre);
     this.selectedGenreId$.next(genre);
     this.channels$.next(this.allChannels);
   }
 
-  setUniqueGenres(genres: IGenre[]): void {
+  public setUniqueGenres(genres: IGenre[]): void {
     this.uniqueGenres$.next(genres);
   }
 
-  setSelectedSorting(sorting: string): void {
+  public setSelectedSorting(sorting: string): void {
     localStorage.setItem('selectedSorting', sorting);
     this.selectedSorting$.next(sorting);
     this.channels$.next(this.allChannels);
   }
 
-  showMoreChannels(): void {
+  public showMoreChannels(): void {
     this.channelsLimit += 12;
     this.channels$.next(this.allChannels);
   }

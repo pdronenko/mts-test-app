@@ -9,11 +9,11 @@ import { Channel } from '../../../../core/classes/channel.class';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChannelComponent implements OnInit {
-  @Input() channel: Channel;
+  @Input() public channel: Channel;
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
 }

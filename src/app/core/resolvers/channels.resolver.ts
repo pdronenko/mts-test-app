@@ -18,7 +18,7 @@ export class ChannelsResolver implements Resolve<Observable<null>> {
     private storeService: StoreService,
     ) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<null> {
+  public resolve(route: ActivatedRouteSnapshot): Observable<null> {
     const { pageTitle } = route.data;
     this.titleService.setTitle(pageTitle);
 

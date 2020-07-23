@@ -10,20 +10,20 @@ import { StoreService } from '../../../../core/services/store.service';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
-  @Input() type: 'genres' | 'sorting';
+  @Input() public type: 'genres' | 'sorting';
 
-  genres$: Observable<IGenre[]>;
-  selectedGenreId$: Observable<string>;
-  selectedSorting$: Observable<string>;
+  public genres$: Observable<IGenre[]>;
+  public selectedGenreId$: Observable<string>;
+  public selectedSorting$: Observable<string>;
 
-  sortingOptions = [
+  public sortingOptions = [
     { value: 'asc', label: 'По возрастанию (А-Я)' },
     { value: 'desc', label: 'По убыванию (Я-А)' },
   ];
 
   constructor(private storeService: StoreService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.type === 'genres') {
       this.genres$ = this.storeService.getUniqueGenres();
       this.selectedGenreId$ = this.storeService.getSelectedGenreId();
@@ -32,7 +32,7 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  onSelectChange(value: string): void {
+  public onSelectChange(value: string): void {
     this.type === 'genres'
       ? this.storeService.setSelectedGenreId(value)
       : this.storeService.setSelectedSorting(value);

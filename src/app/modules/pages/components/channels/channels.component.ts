@@ -1,39 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Channel } from '../../../../core/classes/channel.class';
 import { StoreService } from 'src/app/core/services/store.service';
+import { IMousePosition } from '../../../../core/interfaces/mouse-position.interface';
 
 @Component({
   selector: 'app-channels',
   templateUrl: './channels.component.html',
   styleUrls: ['./channels.component.scss']
 })
-export class ChannelsComponent implements OnInit {
-  activeChannel: Channel;
-  channels$: Observable<Channel[]>;
+export class ChannelsComponent implements OnInit, AfterViewChecked {
+  @ViewChild('channelInfo') public channelInfo: ElementRef;
+
+  public activeChannel: Channel;
+  public channels$: Observable<Channel[]>;
+  public mousePosition: IMousePosition;
 
   constructor(
     private storeService: StoreService,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.channels$ = this.storeService.getChannels();
   }
 
-  identify(index: number, channel: Channel): string {
+  public ngAfterViewChecked(): void {
+    console.log('checked', this.channelInfo)
+  }
+
+  public identify(index: number, channel: Channel): string {
     return channel.name;
   }
 
-  showMoreChannels(): void {
-    this.storeService.showMoreChannels();
-  }
-
-  shouldShowLoadMoreButton(channelsCount: number): boolean {
-    return this.storeService.filteredChannelsCount > channelsCount;
-  }
-
-  generateChannelString(channelsCount: number): string {
+  public generateChannelString(channelsCount: number): string {
     const words = ['канал', 'канала', 'каналов'];
 
     const remainder1 = Math.abs(channelsCount) % 100;
@@ -47,5 +47,18 @@ export class ChannelsComponent implements OnInit {
     ];
 
     return remainderChecks.find(({ check }) => check).word;
+  }
+
+  public showMoreChannels(): void {
+    this.storeService.showMoreChannels();
+  }
+
+  public shouldShowLoadMoreButton(channelsCount: number): boolean {
+    return this.storeService.filteredChannelsCount > channelsCount;
+  }
+
+  public toggleChannelInfo(event: MouseEvent, channel: Channel): void {
+    this.mousePosition = { x: event.clientX, y: event.clientY };
+    this.activeChannel = this.activeChannel && this.activeChannel.name === channel.name ? null : channel;
   }
 }
